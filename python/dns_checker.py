@@ -17,24 +17,38 @@ def check_os():
     os_family = platform.system()
     return os_family
 
-def check_os_dns(os_family):
-    if os_family == "Linux":
+def check_os_dns(os_family) :
+    if os_family == "Linux" :
         check_linux_dns()
-    elif os_family == "Windows":
+    elif os_family == "Windows" :
         check_windows_dns()
-    else:
+    else :
         print("operating system is not supported")
 
-def check_windows_dns():
-    pass
-
-def check_linux_dns():
-    result = subprocess.run(["nmcli" , "dev" , "show"] , capture_output=True , text=True)
+def check_windows_dns() :
+    dns_servers = []
+    result = subprocess.run(["ipconfig" , "/all"] , capture_output = True , text = True , check = True)
+    capture = False
+    for line in result.stdout.splitlines() :
+        if "DNS SEVERS" in line :
+            capture = True
+            dns_servers.append(line.split(':' , 1)[1].strip())
+        elif capture and line.strip() :
+            dns_servers.append(line.strip())
+        elif capture and not line.split() :
+            break
+    if dns_servers :
+        return dns_servers
+    else :
+        return "no DNS nameserver is set"
+    
+def check_linux_dns() :
+    result = subprocess.run(["nmcli" , "dev" , "show"] , capture_output = True , text = True)
     dns_servers = []
     for line in result.stdout.splitlines() :
         if "DNS" in line :
             parts = line.split(":" , 1)
-            if len(parts) > 1:
+            if len(parts) > 1 :
                 dns_servers.append(parts[1].split())
 
     if dns_servers :
@@ -43,5 +57,5 @@ def check_linux_dns():
     else :
         return "no DNS nameserver is set"
     
-def bypass_403():
+def bypass_403() :
     pass
