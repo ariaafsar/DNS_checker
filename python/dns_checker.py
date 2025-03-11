@@ -1,4 +1,5 @@
 import platform
+import subprocess
 
 def start_menu():
     print("hello world!")
@@ -28,7 +29,19 @@ def check_windows_dns():
     pass
 
 def check_linux_dns():
-    pass
+    result = subprocess.run(["nmcli" , "dev" , "show"] , capture_output=True , text=True)
+    dns_servers = []
+    for line in result.stdout.splitlines() :
+        if "DNS" in line :
+            parts = line.split(":" , 1)
+            if len(parts) > 1:
+                dns_servers.append(parts[1].split())
 
+    if dns_servers :
+        return dns_servers
+    
+    else :
+        return "no DNS nameserver is set"
+    
 def bypass_403():
     pass
