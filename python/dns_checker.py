@@ -16,7 +16,18 @@ def check_os():
     os_family = platform.system()
     return os_family
 
-def check_os_dns():
+def check_os_dns(os_family):
+    if os_family == "Linux":
+        check_linux_dns()
+    elif os_family == "Windows":
+        check_windows_dns()
+    else:
+        print("operating system is not supported")
+
+def check_windows_dns():
+    pass
+
+def check_linux_dns():
     pass
 
 def bypass_403():
