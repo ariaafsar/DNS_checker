@@ -13,11 +13,8 @@ def start_menu():
         else:
             print("bad request")
 
-def check_os():
+def check_os_dns() :
     os_family = platform.system()
-    return os_family
-
-def check_os_dns(os_family) :
     if os_family == "Linux" :
         check_linux_dns()
     elif os_family == "Windows" :
@@ -56,6 +53,6 @@ def check_linux_dns() :
     
     else :
         return "no DNS nameserver is set"
-    
-def bypass_403() :
+
+def bypass_403():
     pass
