@@ -1,3 +1,5 @@
+import platform
+
 def start_menu():
     print("hello world!")
     while True :
@@ -9,6 +11,10 @@ def start_menu():
             bypass_403()
         else:
             print("bad request")
+
+def check_os():
+    os_family = platform.system()
+    return os_family
 
 def check_os_dns():
     pass
