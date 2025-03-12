@@ -18,15 +18,20 @@ def start_menu():
         else:
             print("bad request")
 
+
+
 def check_os_dns() :
     os_family = platform.system()
     if os_family == "Linux" :
-        print(check_linux_dns())
+        return check_linux_dns()
     elif os_family == "Windows" :
-        print(check_windows_dns())
+        return check_windows_dns()
     else :
         print("operating system is not supported")
         print("#################################################")
+
+
+
 def check_windows_dns() :
     dns_servers = []
     result = subprocess.run(["ipconfig" , "/all"] , capture_output = True , text = True , check = True)
@@ -44,30 +49,42 @@ def check_windows_dns() :
     else :
         return "no DNS nameserver is set"
     
+
+    
 def check_linux_dns() :
     result = subprocess.run(["nmcli" , "dev" , "show"] , capture_output = True , text = True)
     dns_servers = []
+
     file = open("/etc/resolv.conf" , "r")
     lines = file.readlines()
     file.close()
+
     for line in lines :
         if line.startswith("nameserver") :
             dns_servers.append(line.split()[1])
+
     for line in result.stdout.splitlines() :
         if "DNS" in line :
             parts = line.split(":" , 1)
             if len(parts) > 1 and parts[1].strip() :
                 dns_servers.extend(parts[1].split())
     
-    if dns_servers :
-        for index , server in enumerate(dns_servers) :
-            if server != "192.168.0.125" :
-                print(server)
+    filtered_dns_servers = []
+    for server in dns_servers :
+        if server != "192.168.0.125" :
+            filtered_dns_servers.append(server)
+    
+    if filtered_dns_servers :
+        return filtered_dns_servers
     
     else :
         return "no DNS nameserver is set"
+    
 
+    
 #def bypass_403():
 #    pass
+
+
 
 start_menu()
