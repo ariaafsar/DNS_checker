@@ -11,7 +11,7 @@ def start_menu():
         choice = input()
         print("#################################################")
         if choice == 1 or choice == "1" :
-            print(check_os_dns())
+            check_os_dns()
             break
 #        elif choice == 2 or choice == "2" :
 #            bypass_403()
@@ -23,9 +23,9 @@ def start_menu():
 def check_os_dns() :
     os_family = platform.system()
     if os_family == "Linux" :
-        return check_linux_dns()
+        check_linux_dns()
     elif os_family == "Windows" :
-        return check_windows_dns()
+        check_windows_dns()
     else :
         print("operating system is not supported")
         print("#################################################")
@@ -75,10 +75,11 @@ def check_linux_dns() :
             filtered_dns_servers.append(server)
     
     if filtered_dns_servers :
-        return filtered_dns_servers
+        for server in filtered_dns_servers :
+            print(server)
     
     else :
-        return "no DNS nameserver is set"
+        print("no DNS nameserver is set")
     
 
     
