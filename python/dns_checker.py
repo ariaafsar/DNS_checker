@@ -2,10 +2,14 @@ import platform
 import subprocess
 
 def start_menu():
+    print("#################################################")
     print("hello world!")
+
     while True :
-        
-        choice = input("choose you option please: \n 1.check system dns \n 2.check bypass 403 error")
+        print("#################################################")
+        print("choose you option please: \n 1.check system dns \n 2.check bypass 403 error")
+        choice = input()
+        print("#################################################")
         if choice == 1 or choice == "1" :
             print(check_os_dns())
             break
@@ -22,7 +26,7 @@ def check_os_dns() :
         print(check_windows_dns())
     else :
         print("operating system is not supported")
-
+        print("#################################################")
 def check_windows_dns() :
     dns_servers = []
     result = subprocess.run(["ipconfig" , "/all"] , capture_output = True , text = True , check = True)
@@ -43,14 +47,22 @@ def check_windows_dns() :
 def check_linux_dns() :
     result = subprocess.run(["nmcli" , "dev" , "show"] , capture_output = True , text = True)
     dns_servers = []
+    file = open("/etc/resolv.conf" , "r")
+    lines = file.readlines()
+    file.close()
+    for line in lines :
+        if line.startswith("nameserver") :
+            dns_servers.append(line.split()[1])
     for line in result.stdout.splitlines() :
         if "DNS" in line :
             parts = line.split(":" , 1)
-            if len(parts) > 1 :
-                dns_servers.append(parts[1].split())
-
+            if len(parts) > 1 and parts[1].strip() :
+                dns_servers.extend(parts[1].split())
+    
     if dns_servers :
-        return dns_servers
+        for index , server in enumerate(dns_servers) :
+            if server != "192.168.0.125" :
+                print(server)
     
     else :
         return "no DNS nameserver is set"
