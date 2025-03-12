@@ -14,4 +14,16 @@ class Os_dns :
                 if len(parts) > 1 and parts[1].split() :
                     dns_servers.extend(parts[1].split())
         return dns_servers
+    
+    def linux_dns_file_checker():
+        dns_file_servers = []
+        file = open("/etc/resolv.conf" , "r")
+        lines = file.readline()
+        file.close
+
+        for line in lines :
+            if line.startswith("nameserver") :
+                dns_file_servers.append(line.split()[1])
+        
+
         
