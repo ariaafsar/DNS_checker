@@ -73,11 +73,15 @@ def check_linux_dns() :
     for server in dns_servers :
         if server != "192.168.0.125" :
             filtered_dns_servers.append(server)
-    
-    if filtered_dns_servers :
-        for server in filtered_dns_servers :
-            print(server)
-    
+
+    if "127.0.0.53" in filtered_dns_servers :
+        print("no DNS nameserver is set")
+    elif filtered_dns_servers :
+        for server in filtered_dns_servers:
+            if server != "127.0.0.53" :
+                if server != "8.8.8.8" :
+                    print(server)
+            
     else :
         print("no DNS nameserver is set")
     
