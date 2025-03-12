@@ -2,6 +2,7 @@ import platform
 import subprocess
 
 class Os_dns :
+
     def check_os() :
         os = platform.system()
 
@@ -24,6 +25,8 @@ class Os_dns :
         for line in lines :
             if line.startswith("nameserver") :
                 dns_file_servers.append(line.split()[1])
-        
+        return dns_file_servers
+
+
 
         
