@@ -26,7 +26,20 @@ class Os_dns :
             if line.startswith("nameserver") :
                 dns_file_servers.append(line.split()[1])
         return dns_file_servers
-
-
-
-        
+    
+    def windows_dns_checker() :
+        dns_servers = []
+        result = subprocess.run(["ipconfig" , "/all"] , capture_output=True , text=True)
+        capture = False
+        for line in result.stdout.splitlines() :
+            if "DNS SERVER" in line :
+                capture = True
+                dns_servers.append(line.split(':' , 1)[1].strip())
+            elif capture and line.strip() :
+                dns_servers.append(line.strip())
+            elif capture and not line.split() :
+                break
+        if dns_servers :
+            return dns_servers
+        else :
+            return "no DNS nameserver is set"
