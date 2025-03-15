@@ -5,6 +5,12 @@ class Os_dns :
 
     def check_os() :
         os = platform.system()
+        if os == "Linux" :
+            Os_dns.linux_dns_checker_result_cominer()
+        elif os == "Windows" :
+            Os_dns.windows_dns_checker()
+        else :
+            print("sorry but operating system is not supported")
 
     def linux_dns_checker() :
         dns_servers = []
