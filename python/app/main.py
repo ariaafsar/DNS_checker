@@ -1,5 +1,3 @@
-from .best_dns import Best_dns
-from .dns_list_checker import Dns_list
 from .os_dns_checker import Os_dns
 
 class menu :
@@ -12,7 +10,7 @@ class menu :
             choice = input()
             print("#################################################")
             if choice == 1 or choice == "1" :
-                pass
+                Os_dns.check_os()
             elif choice == 2 or choice == "2" :
                 pass
             elif choice == 3 or choice == "3" :
