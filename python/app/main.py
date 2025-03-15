@@ -11,6 +11,7 @@ class menu :
             print("#################################################")
             if choice == 1 or choice == "1" :
                 Os_dns.check_os()
+                break
             elif choice == 2 or choice == "2" :
                 pass
             elif choice == 3 or choice == "3" :
