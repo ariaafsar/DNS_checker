@@ -27,6 +27,13 @@ class Os_dns :
                 dns_file_servers.append(line.split()[1])
         return dns_file_servers
     
+    def linux_dns_checker_result_cominer() :
+        dns_server_list_1 = Os_dns.linux_dns_checker
+        dns_server_list_2 = Os_dns.linux_dns_checker_result_cominer
+        dns_servers = list(set(dns_server_list_1 + dns_server_list_2))
+        return dns_servers()
+
+
     def windows_dns_checker() :
         dns_servers = []
         result = subprocess.run(["ipconfig" , "/all"] , capture_output=True , text=True)
