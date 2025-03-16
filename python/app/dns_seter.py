@@ -12,3 +12,10 @@ class Seter:
             pass
         else :
             return "operating system is not supported"
+        
+    def linux_seter():
+        print("enter your dns ip:\n")
+        dns_nameserver = input()
+        dns_file = "/etc/resolv.conf"
+        
+
