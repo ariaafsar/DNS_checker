@@ -5,7 +5,7 @@ class menu :
         print("Hello World!")
         print("#################################################")
         while True :
-            print("choose you option please: \n 1.check system dns \n 2.set dns from list \n 3.check fastest dns")
+            print("choose you option please: \n 1.check system dns \n 2.set dns from list \n 3.check fastest dns \n 4.exit")
             print("#################################################")
             choice = input()
             print("#################################################")
@@ -16,6 +16,8 @@ class menu :
                 pass
             elif choice == 3 or choice == "3" :
                 pass
+            elif choice == 4 or choice == "4" :
+                break
             else:
                 print("bad request")
 
