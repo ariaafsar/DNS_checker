@@ -6,13 +6,22 @@ class Os_dns :
     def check_os() :
         os = platform.system()
         if os == "Linux" :
-            Os_dns.linux_dns_checker_result_cominer()
+            Os_dns.linux_dns_checker()
         elif os == "Windows" :
             Os_dns.windows_dns_checker()
         else :
             print("sorry but operating system is not supported")
 
     def linux_dns_checker() :
+        dns_server = []
+        dns_servers = Os_dns.linux_subproccess_dns_checker()
+        for line in dns_servers.splitlines() :
+            if line == "127.0.0.53" :
+                continue
+            else :
+                dns_server.append(line.split()[1])    
+            return dns_server
+    def linux_subproccess_dns_checker() :
         dns_servers = []
         result = subprocess.run(["nmcli" , "dev" , "show"] , capture_output=True , text=True)
         for line in result.stdout.splitlines() :
@@ -34,8 +43,8 @@ class Os_dns :
         return dns_file_servers
     
     def linux_dns_checker_result_cominer() :
-        dns_server_list_1 = Os_dns.linux_dns_checker
-        dns_server_list_2 = Os_dns.linux_dns_checker_result_cominer
+        dns_server_list_1 = Os_dns.linux_dns_checker()
+        dns_server_list_2 = Os_dns.linux_dns_file_checker()
         dns_servers = list(set(dns_server_list_1 + dns_server_list_2))
         return dns_servers()
 
