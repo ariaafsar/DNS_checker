@@ -21,5 +21,5 @@ class menu :
 
     def main() :
         menu.start_menu()
-
-menu.start_menu()
+if __name__ == "__main__" :
+    menu.start_menu()
