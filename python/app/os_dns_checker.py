@@ -15,12 +15,12 @@ class Os_dns :
     def linux_dns_checker() :
         dns_server = []
         dns_servers = Os_dns.linux_subproccess_dns_checker()
-        for line in dns_servers.splitlines() :
+        for line in dns_servers :
             if line == "127.0.0.53" :
                 continue
             else :
-                dns_server.append(line.split()[1])    
-            return dns_server
+                dns_server.append(line)    
+            print(dns_server)
     def linux_subproccess_dns_checker() :
         dns_servers = []
         result = subprocess.run(["nmcli" , "dev" , "show"] , capture_output=True , text=True)
