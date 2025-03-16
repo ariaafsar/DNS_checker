@@ -1,4 +1,4 @@
-from .os_dns_checker import Os_dns
+from os_dns_checker import Os_dns
 
 class menu :
     def start_menu():
@@ -18,3 +18,8 @@ class menu :
                 pass
             else:
                 print("bad request")
+
+    def main() :
+        menu.start_menu()
+
+menu.start_menu()
