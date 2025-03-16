@@ -21,8 +21,3 @@ class menu :
                 break
             else:
                 print("bad request")
-
-    def main() :
-        menu.start_menu()
-if __name__ == "__main__" :
-    menu.start_menu()
