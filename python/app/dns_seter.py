@@ -24,4 +24,29 @@ class Seter:
             if num < 0 or num > 255 :
                 return False
         return True 
-    
+    def set_dns(dns_ip) :
+        dns_file_path = '/etc/resolv.conf'
+        backup_file_path = '/etc/resolv.conf.bak'
+
+        if not os.access(dns_file_path , os.W_OK) :
+            print("Error: No write permission for " + dns_file_path + ". Run as root")
+            sys.exit(1)
+        
+        if os.path.exists(dns_file_path) :
+            file_in = open(dns_file_path , "r")
+            orginal_content = file_in.read()
+            file_in.close()
+            backup = open(backup_file_path , "w")
+            backup.write(orginal_content)
+            backup.close()
+            print("backup created at " + backup_file_path)
+        else :
+            print(dns_file_path + " not found")
+            sys.exit(1)
+        
+        file_out = open(dns_file_path , "w")
+        file_out.write("nameserver " + dns_ip + "\n")
+        file_out.close()
+        print("dns set to " + dns_ip + " successfully")
+
+
