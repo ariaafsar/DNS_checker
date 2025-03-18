@@ -62,5 +62,17 @@ class Seter:
             sys.exit(1)
         
         return dns_list_module.dns_list
+    
+    def show_dns_options(dns_list) :
+        print("Avable DNS Servers:")
+        for idx , dns in enumerate(dns_list , start=1) :
+            print(f"{idx}. {dns}")
+
+        choice = input(f"Select a DNS server (1-{len(dns_list)}): ").strip()
+        if not choice.isdigit() or not (1 <= int(choice) <= len(dns_list)) :
+            print("Invalid choice. Please select a valid option.")
+            sys.exit(1)
+
+        return dns_list[int(choice) - 1]
 
 
