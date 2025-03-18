@@ -1,8 +1,7 @@
 import os
-import subprocess
-import time
 import platform
 import sys
+from importlib import util
 class Seter:
     def os_detector():
         operating_system = platform.system()
@@ -48,5 +47,20 @@ class Seter:
         file_out.write("nameserver " + dns_ip + "\n")
         file_out.close()
         print("dns set to " + dns_ip + " successfully")
+
+    def read_dns_list_file(file) :
+        if not os.path.isfile(file) :
+            print(f"Error: {file} not found")
+            sys.exit(1)
+        
+        spec = util.spec_from_file_location("dns_list" , file)
+        dns_list_module = util.module_from_spec(spec)
+        spec.loader.exec_module(dns_list_module)
+
+        if not hasattr(dns_list_module , "dns_list") :
+            print(f"Error: dns_list not found in {file}")
+            sys.exit(1)
+        
+        return dns_list_module.dns_list
 
 
